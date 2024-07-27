@@ -24,12 +24,9 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login/', formData);
       if (response.status === 200) {
-        const { token } = response.data; // Adjust according to your response structure
-        localStorage.setItem('token', token); // Save the token in local storage
-        
-        // Set the Authorization header for future requests
-        axios.defaults.headers.common['Authorization'] = `Token ${token}`;
-
+        const { access } = response.data;
+        localStorage.setItem('token', access);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
         navigate('/songs'); // Redirect to SongList after login
       }
     } catch (error) {
