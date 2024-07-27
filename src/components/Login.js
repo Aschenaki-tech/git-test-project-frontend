@@ -24,13 +24,17 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login/', formData);
       if (response.status === 200) {
-        const { token } = response.data;
-        localStorage.setItem('token', token);
+        const { token } = response.data; // Adjust according to your response structure
+        localStorage.setItem('token', token); // Save the token in local storage
+        
+        // Set the Authorization header for future requests
+        axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+
         navigate('/songs'); // Redirect to SongList after login
       }
     } catch (error) {
       if (error.response && error.response.data) {
-        setError(error.response.data.non_field_errors[0]);
+        setError(error.response.data.detail || 'Invalid credentials');
       } else {
         setError('An error occurred. Please try again.');
       }

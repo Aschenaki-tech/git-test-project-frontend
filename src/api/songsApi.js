@@ -1,15 +1,21 @@
 import axios from 'axios';
+// import axiosInstance from './axiosInstance';
 
-const API_URL = 'http://localhost:5000/api/songs/'; // Adjust the URL as needed
+const BASE_URL = 'http://localhost:5000/api/songs/'; // Adjust the URL as needed
 
-export const apiFetchSongs = () => axios.get(`${API_URL}`);
-export const apiGetSongById = (id) => axios.get(`${API_URL}${id}/`);
-export const apiAddSong = (song) => axios.post(`${API_URL}`, song);
-export const apiUpdateSong = (id, song) => axios.put(`${API_URL}${id}/`, song);
-export const apiDeleteSong = (id) => axios.delete(`${API_URL}${id}/`);
-export const apiFetchSongsByLanguage = (language) => axios.get(`${API_URL}by_language/?language=${language}`);
-export const apiFetchSongsByGenre = (genre) => axios.get(`${API_URL}by_genre/?genre=${genre}`);
-export const apiFetchLanguages = () => axios.get(`${API_URL}languages/`); // Add this line
-export const apiFetchGenres = () => axios.get(`${API_URL}genres/`);
-export const apiFetchArtists = () => axios.get(`${API_URL}artists/`); // Add this line
-export const apiFetchSongsByArtist = (artist) => axios.get(`${API_URL}by_artist/?artist=${artist}`); // Add this line
+const token = localStorage.getItem('token');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+    }
+   
+    export const apiFetchSongs = () => axios.get(`${BASE_URL}`);
+    export const apiGetSongById = (id) => axios.get(`${BASE_URL}${id}/`);
+    export const apiAddSong = (song) => axios.post(`${BASE_URL}`, song);
+    export const apiUpdateSong = (id, song) => axios.put(`${BASE_URL}${id}/`, song);
+    export const apiDeleteSong = (id) => axios.delete(`${BASE_URL}${id}/`);
+    export const apiFetchSongsByLanguage = (language) => axios.get(`${BASE_URL}by_language/?language=${language}`);
+    export const apiFetchSongsByGenre = (genre) => axios.get(`${BASE_URL}by_genre/?genre=${genre}`);
+    export const apiFetchLanguages = () => axios.get(`${BASE_URL}languages/`);
+    export const apiFetchGenres = () => axios.get(`${BASE_URL}genres/`);
+    export const apiFetchArtists = () => axios.get(`${BASE_URL}artists/`);
+    export const apiFetchSongsByArtist = (artist) => axios.get(`${BASE_URL}by_artist/?artist=${artist}`);
